@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Clustering - Crime Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+        }
+
+        .sidebar {
+            width: 200px;
+            background-color: #2c3e50; /* Dark blue background */
+            padding: 20px;
+            height: 100vh;
+            color: white;
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            padding: 10px 0;
+            text-decoration: none;
+        }
+
+        .sidebar a:hover {
+            background-color: #34495e; /* Slightly darker blue on hover */
+            padding-left: 5px;
+        }
+
+        .main {
+            flex-grow: 1;
+            padding: 20px;
+            background-color: #f4f4f4;
+            margin-left: 220px; /* Adjust margin for fixed sidebar */
+        }
+
+        .container {
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #2c3e50; /* Dark blue heading */
+        }
+
+        .clustering-output {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .error-message {
+            color: red;
+            font-weight: bold;
+            background-color: #ffe5e5;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        .plot-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .cluster-plot {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        .card {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h3 {
+            color: #333;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+
+        .card ul {
+            list-style-type: disc;
+            padding-left: 20px;
+            color: #555;
+            margin-bottom: 8px;
+        }
+
+        .card ul li {
+            margin-bottom: 5px;
+        }
+
+        .card b {
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <a href="{{ url_for('index') }}">Home</a>
+        <a href="{{ url_for('eda_page') }}">EDA</a>
+        <a href="{{ url_for('classification_page') }}">Classification</a>
+        <a href="{{ url_for('clustering_page') }}">Clustering</a>
+        <a href="{{ url_for('forecasting_page') }}">Forecasting</a>
+        <a href="{{ url_for('visualizations_page') }}">Visualizations</a>
+        <a href="{{ url_for('crime_analysis') }}">Crime Analysis</a>
+        <a href="{{ url_for('regression_page') }}">Regression</a>
+    </div>
+
+    <div class="main">
+        <div class="container">
+            <h1>High-Risk Crime Area Clustering</h1>
+            <p>This section applies K-Means clustering to identify high-risk crime areas based on Latitude and Longitude.</p>
+
+            {% if clustering_image %}
+                <div class="plot-container">
+                    <img src="{{ url_for('static', filename='Visualizations/simplest_clusters_plot.png') }}" alt="Crime Cluster Plot" class="cluster-plot">
+                </div>
+            {% elif error_message %}
+                <div class="error-message">
+                    <p>{{ error_message }}</p>
+                </div>
+            {% else %}
+                <p>A plot of crime clusters will be displayed here after analysis.</p>
+            {% endif %}
+
+            <div class="card">
+              <h3>Clustering Analysis: Identifying Crime Hotspots</h3>
+              <p><b>Goal:</b> To group similar crime locations together to identify potential high-risk areas or "hotspots."</p>
+              <p><b>What We Did:</b> We used a clustering algorithm (likely K-Means) on the location data (Latitude and Longitude) to find natural groupings of crime incidents.</p>
+              <p><b>Key Things We Found:</b></p>
+              <ul>
+                <li><b>Identified Clusters:</b> The analysis identified [Number] distinct clusters of crime incidents on the map.</li>
+                <li><b>Visual Representation:</b> A plot showing these clusters has been generated (see the "Visualizations" section). Each cluster likely represents an area with a higher density of reported crimes.</li>
+                <li><b>Cluster Characteristics:</b> [Optional: Briefly mention if you observed any characteristics of specific clusters, e.g., "Cluster 1 appears to be concentrated in the downtown area."]</li>
+              </ul>
+              <p><b>What This Means:</b> By identifying these clusters, we can pinpoint areas that experience a higher concentration of criminal activity. This information can be valuable for targeted policing and resource allocation.</p>
+            </div>
+
+            <div class="card">
+              <h3>Why Use Clustering for Crime Data?</h3>
+              <p>Clustering helps us move beyond individual crime incidents to see broader spatial patterns. Identifying hotspots allows for proactive strategies rather than just reacting to individual events.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

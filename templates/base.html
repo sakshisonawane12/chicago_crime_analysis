@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Crime Dashboard{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="sidebar">
+        <!-- Navigation here -->
+        <a href="{{ url_for('index') }}">Home</a>
+        <a href="{{ url_for('eda_page') }}">EDA</a>
+        <a href="{{ url_for('classification_page') }}">Classification</a>
+        <a href="{{ url_for('clustering_page') }}">Clustering</a>
+        <a href="{{ url_for('forecasting_page') }}">Forecasting</a>
+
+        <a href="{{ url_for('visualizations_page') }}">Visualizations</a>
+        <a href="{{ url_for('crime_analysis') }}">Crime Analysis</a>
+       
+    </div>
+
+    <div class="main">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

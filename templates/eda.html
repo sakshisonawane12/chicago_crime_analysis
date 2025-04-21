@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EDA Results</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        header {
+            background-color: #007ac1; /* Example header color */
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+        }
+
+        /* Responsive adjustments for the navbar */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            nav ul li {
+                margin: 10px 0;
+            }
+        }
+        body {
+            padding: 40px;
+            background-color: #f4f4f9;
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #4e73df;
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #4e73df;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        table {
+            margin-top: 20px;
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .table-bordered {
+            border: 1px solid #dee2e6;
+        }
+        .table th, .table td {
+            text-align: center;
+            vertical-align: middle;
+            padding: 12px;
+        }
+        /* Header styling */
+        .table th {
+            background-color: #4e73df; /* primary blue */
+            color: white;
+        }
+        /* Column data styling with alternating blue shades */
+        .table td:nth-child(odd) {
+            background-color: #e6f0ff; /* Light blue for odd columns */
+        }
+        .table td:nth-child(even) {
+            background-color: #c7d9f5; /* Slightly darker blue for even columns */
+        }
+        /* Hover effect */
+        .table-hover tbody tr:hover {
+            background-color: #e6f0ff;
+        }
+
+        .card {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h3 {
+            color: #333;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+
+        .card ul {
+            list-style-type: disc;
+            padding-left: 20px;
+            color: #555;
+            margin-bottom: 8px;
+        }
+
+        .card ul li {
+            margin-bottom: 5px;
+        }
+
+        .card b {
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Crime analysis</div>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('index') }}">EDA</a></li>
+                <li><a href="{{ url_for('classification_page') }}">Classification</a></li>
+                <li><a href="{{ url_for('clustering_page') }}">Clustering</a></li>
+                <li><a href="{{ url_for('forecasting_page') }}">Forecasting</a></li>
+                <li><a href="{{ url_for('visualizations_page') }}">Visualization</a></li>
+                <li><a href="{{ url_for('crime_analysis') }}">Crime Analysis</a></li>
+                <li><a href="{{ url_for('regression_page') }}">Regression</a></li>
+            </ul>
+        </nav>
+    </header>
+    <h1>Exploratory Data Analysis</h1>
+
+    <div class="container">
+        <h2>Top Crime Types</h2>
+        <div>
+            {{ eda_output.top_crime_types | safe }}
+        </div>
+
+        <h2>Missing Values</h2>
+        <div>
+            {{ eda_output.missing_values | safe }}
+        </div>
+
+        <div class="card">
+            <h3>Exploratory Data Analysis (EDA)</h3>
+            <p><b>Purpose:</b> To understand the basic patterns and characteristics of our crime data.</p>
+            <p><b>Key Things We Found:</b></p>
+            <ul>
+                <li><b>Most Common Crimes:</b> The most frequent type of crime is [e.g., Theft], followed by [e.g., Battery].</li>
+                <li><b>Top Crime Locations:</b> Most crimes happen on [e.g., the Street], and in [e.g., Apartments].</li>
+                <li><b>Crime Trends Over Time:</b> [Describe any overall trend, e.g., Crime count was highest in 2022].</li>
+                <li><b>Missing Information:</b> We found some missing data in [e.g., Location Description] and [e.g., Ward], .</li>
+                
+            </ul>
+            <p><b>This initial look helps us see where and what types of crimes are most prevalent, and highlights any data quality issues.</b> </p>
+        </div>
+
+        <div class="card">
+            <h3>Why Explore the Data First?</h3>
+            <p>We are understanding the data's basics that will helps us to make better decisions for our analysis.</p>
+        </div>
+    </div>
+
+</body>
+</html>

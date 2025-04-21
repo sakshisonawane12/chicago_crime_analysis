@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regression Analysis - Chicago Crime Data</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+
+.card {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card h3 {
+  color: #333;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.card p {
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+
+.card ul {
+  list-style-type: disc;
+  padding-left: 20px;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.card ul li {
+  margin-bottom: 5px;
+}
+
+.card b {
+  font-weight: bold;
+  color: #333;
+}
+        /* Basic reset and body styles */
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            display: flex;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        /* Sidebar styles */
+        .sidebar {
+            width: 200px;
+            background-color: #2c3e50;
+            padding: 20px;
+            height: 100vh;
+            color: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow-y: auto;
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            padding: 10px 0;
+            text-decoration: none;
+            margin-bottom: 5px;
+        }
+
+        .sidebar a:hover {
+            background-color: #34495e;
+            padding-left: 10px;
+            transition: background-color 0.3s ease, padding-left 0.3s ease;
+        }
+
+        /* Main content area */
+        .main {
+            margin-left: 220px; /* Account for sidebar width + padding */
+            padding: 20px;
+            background-color: #f4f4f4;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Container for the regression analysis content */
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        h1, h2 {
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        .result-item {
+            margin-bottom: 10px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .code-block {
+            background-color: #eee;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+
+        /* Footer styles */
+        footer {
+            text-align: center;
+            padding: 10px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <a href="{{ url_for('index') }}">Home</a>
+        <a href="{{ url_for('eda_page') }}">EDA</a>
+        <a href="{{ url_for('classification_page') }}">Classification</a>
+        <a href="{{ url_for('clustering_page') }}">Clustering</a>
+        <a href="{{ url_for('forecasting_page') }}">Forecasting</a>
+        <a href="{{ url_for('visualizations_page') }}">Visualizations</a>
+        <a href="{{ url_for('crime_analysis') }}">Crime Analysis</a>
+        <a href="{{ url_for('regression_page') }}">Regression</a>
+    </div>
+
+    <div class="main">
+        <div class="container">
+            <h1>Regression Analysis: Predicting Crime Counts by Community Area</h1>
+            <p>This page presents the results of a linear regression analysis aimed at understanding the relationship between community areas (as categorical features) and the total number of reported crimes within those areas.</p>
+
+            <div class="result-item">
+                <h2>Feature Importance (Coefficients)</h2>
+                <p>The coefficients below indicate the change in the predicted crime count for a one-unit increase in the corresponding one-hot encoded community area feature, relative to the first community area (which was dropped during encoding).</p>
+                <div class="code-block">
+                    Feature Importance: [ 7.32704918e+02   6.11704918e+02  -1.19329508e+03   3.63797881e-12
+                     2.53070492e+03   2.81704918e+02   7.18370492e+03  -2.87129508e+03
+                    -1.92029508e+03   2.27373675e-12  -2.56129508e+03   2.27373675e-12
+                    -1.00529508e+03  -1.88295082e+02  -5.93295082e+02  -1.62229508e+03
+                    -2.50829508e+03  -3.20950211e-12  -1.86729508e+03  -1.20929508e+03
+                     8.28704918e+02   2.85870492e+03   3.91370492e+03   8.95670492e+03
+                     6.69704918e+02   5.62704918e+02   6.13370492e+03  -4.60431693e-12
+                     5.92704918e+02  -3.60295082e+02   4.62270492e+03  -7.60295082e+02
+                    -2.27373675e-13  -4.08295082e+02  -1.15107923e-12  -2.53629508e+03
+                     2.29704918e+02  -1.38129508e+03  -9.44295082e+02  -1.08529508e+03
+                     2.37049180e+01   5.06970492e+03   2.85670492e+03  -2.00929508e+03
+                    -8.38440428e-13  -2.82829508e+03  -1.13686838e-12   2.71670492e+03
+                    -2.22629508e+03   9.09494702e-13  -2.01829508e+03   1.77704918e+02
+                    -9.09494702e-13  -2.55929508e+03  -1.25529508e+03  -2.17529508e+03
+                    -1.08729508e+03  -4.54747351e-13  -1.63829508e+03   5.99704918e+02
+                    -2.30429508e+03  -1.23829508e+03  -2.17529508e+03  -1.58229508e+03
+                     1.61870492e+03   0.00000000e+00   1.51870492e+03   0.00000000e+00
+                    -1.20329508e+03   3.06170492e+03  -2.29229508e+03  -2.74295082e+02
+                    -2.63929508e+03   0.00000000e+00  -1.49729508e+03  -3.32295082e+02]
+                    Intercept: 3167.2950819672133
+                </div>
+            </div>
+            <div class="card">
+                <h3>Regression Analysis: Impact of Community Area on Crime Count</h3>
+                <p>The coefficients below indicate the estimated change in predicted crime count for a one-unit increase in the corresponding community area (relative to the first community area).</p>
+                <p><b>Key Findings:</b></p>
+                <ul>
+                  <li><b>Positive Coefficients:</b> Community areas with positive coefficients (e.g., the first few listed) are associated with a <b>higher</b> predicted crime count compared to the reference community area. For instance, one community area shows an estimated increase of approximately 733 crimes.</li>
+                  <li><b>Negative Coefficients:</b> Community areas with negative coefficients (e.g., starting with -1193.3) are associated with a <b>lower</b> predicted crime count compared to the reference community area. Some community areas show substantial decreases in predicted crime count.</li>
+                  <li><b>Near-Zero Coefficients:</b> Coefficients close to zero (e.g., 3.6e-12) suggest that the predicted crime count in those specific community areas is <b>similar</b> to the reference community area.</li>
+                  <li><b>Intercept:</b> The intercept of approximately 3167 indicates the baseline predicted crime count when all the one-hot encoded community area features are zero (i.e., for the reference community area).</li>
+                </ul>
+                <p><b>Interpretation:</b> Each coefficient quantifies the linear relationship between a specific community area and the predicted crime count, relative to the baseline. A larger absolute coefficient (positive or negative) implies a stronger association with a difference in crime count.</p>
+                <p><b>Note:</b> This analysis treats community areas as categorical predictors. The 'importance' here reflects the model's learned linear relationship and doesn't imply causation or traditional feature importance.</p>
+              </div>
+            <p><strong>Interpretation:</strong> Each coefficient represents the estimated difference in crime count for a specific community area compared to the reference community area. A positive coefficient suggests a higher predicted crime count, while a negative coefficient suggests a lower predicted crime count, assuming all other encoded community area features are zero (meaning we are looking at that specific community area).</p>
+            <p><strong>Note:</strong> This model uses community areas as categorical predictors. The 'importance' here refers to the linear relationship established by the model, not necessarily a causal effect or a traditional feature importance measure from tree-based models.</p>
+        </div>
+
+        <footer>
+            <p>Group 17</p>
+        </footer>
+    </div>
+
+</body>
+</html>

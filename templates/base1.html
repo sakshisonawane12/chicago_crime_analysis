@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crime Analysis (Example)</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background-color: #007ac1; /* Example header color */
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .hero {
+            background-color: white;
+            padding: 40px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+
+        .hero-text {
+            flex: 1;
+            padding-right: 20px;
+        }
+
+        .hero-image {
+            flex: 1;
+            max-width: 400px; /* Adjust as needed */
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            border: 1px solid #ccc; /* Placeholder for image border */
+            margin-right:30px;
+ 
+        }
+
+        .overview-bar {
+            background-color: #e0e0e0;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: flex-end; /* Align to the right */
+        }
+
+        .overview-bar a {
+            color: #333;
+            text-decoration: none;
+            margin-left: 15px;
+            padding: 8px 12px;
+            border-radius: 5px;
+        }
+
+        .overview-bar a.active {
+            background-color: #007ac1;
+            color: white;
+        }
+
+        .content {
+            background-color: white;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+            .hero-text {
+                padding-right: 0;
+                margin-bottom: 20px;
+            }
+            nav ul {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            nav ul li {
+                margin: 10px 0;
+            }
+            .overview-bar {
+                justify-content: center;
+            }
+            .overview-bar a {
+                margin: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Crime analysis</div>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('index') }}">EDA</a></li>
+                <li><a href="{{ url_for('classification_page') }}">Classification</a></li>
+                <li><a href="{{ url_for('clustering_page') }}">Clustering</a></li>
+                <li><a href="{{ url_for('forecasting_page') }}">Forecasting</a></li>
+                <li><a href="{{ url_for('visualizations_page') }}">Visualization</a></li>
+                <li><a href="{{ url_for('crime_analysis') }}">Crime Analysis</a></li>
+            </ul>
+        </nav>
+    </header>
+
+  
+    <div class="hero">
+        <div class="hero-text">
+            <h1 style="font-size: 80px; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">Chicago City</h1>
+            <h1>Crime Analysis</h1>
+            <p>Crime analysts use mapping and analytical methods such as hot spot analysis to identify crime trends and patterns and help police agencies identify problems, allocate resources, and solve crimes. ArcGIS is the industry standard for crime analysis technology and is critical to...</p>
+        </div>
+        <div class="hero-image">
+            <img src="../static/Visualizations/Chicago_community_areas_map.svg.png" alt="Crime Analysis Visualization">
+            </div>
+    </div>
+
+    <div class="content">
+        <p>More detailed content about crime analysis can go here.</p>
+        </div>
+
+    <footer>
+        <p>Group 17</p>
+    </footer>
+
+    <script>
+        // You can add JavaScript for interactive elements here
+        // For example, handling button clicks or dynamic content loading
+        const requestDemoButtons = document.querySelectorAll('.request-demo');
+        requestDemoButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                alert('Request Demo functionality will be implemented here.');
+            });
+        });
+    </script>
+</body>
+</html>

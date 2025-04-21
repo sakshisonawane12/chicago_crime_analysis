@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Visualizations - Crime Dashboard</title>
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+        }
+        .sidebar {
+            width: 200px;
+            background-color: #2c3e50;
+            padding: 20px;
+            height: 100vh;
+            color: white;
+        }
+        .sidebar a {
+            display: block;
+            color: white;
+            padding: 10px 0;
+            text-decoration: none;
+        }
+        .sidebar a:hover {
+            background-color: #34495e;
+            padding-left: 5px;
+        }
+        .main {
+            flex-grow: 1;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+        }
+        .error-message {
+            color: red;
+            font-weight: bold;
+            background-color: #ffe5e5;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        .visualization-grid {
+            display: flex;
+            flex-direction: column; /* Stack items vertically */
+            align-items: center; /* Center items horizontally */
+            margin-top: 20px;
+        }
+        .visualization-item {
+            padding: 15px;
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-align: center;
+            margin-bottom: 20px; /* Add space between items */
+            width: 80%; /* Increased width of each item */
+        }
+        .visualization-item img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            max-height: 500px; /* Increased maximum height */
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <a href="{{ url_for('index') }}">Home</a>
+        <a href="{{ url_for('eda_page') }}">EDA</a>
+        <a href="{{ url_for('classification_page') }}">Classification</a>
+        <a href="{{ url_for('clustering_page') }}">Clustering</a>
+        <a href="{{ url_for('forecasting_page') }}">Forecasting</a>
+        <a href="{{ url_for('crime_analysis') }}">Crime Analysis</a>
+        <a href="{{ url_for('visualizations_page') }}">Visualizations</a>
+        <a href="{{ url_for('regression_page') }}">Regression</a>
+    </div>
+    <div class="main">
+        <div class="container">
+            <h1>Crime Data Visualizations</h1>
+            <p>This page displays various visualizations of the crime data.</p>
+            {% if error_message %}
+                <div class="error-message">
+                    <p>{{ error_message }}</p>
+                </div>
+            {% else %}
+                <div class="visualization-grid">
+                    {% for title, image_path in visualizations_output.items() %}
+                        <div class="visualization-item">
+                            <h3>{{ title }}</h3>
+                            <img src="{{ url_for('static', filename=image_path) }}" alt="{{ title }}" loading="lazy">
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

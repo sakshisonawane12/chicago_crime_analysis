@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Crime Trend Analysis</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex; /* Enable flexbox for layout */
+        }
+
+        .sidebar {
+            width: 200px;
+            background-color: #333;
+            color: white;
+            padding-top: 20px;
+            position: fixed; /* Fixed sidebar */
+            height: 100%;
+            overflow-y: auto; /* Enable scrolling if content overflows */
+        }
+
+        .sidebar a {
+            padding: 15px 20px;
+            text-decoration: none;
+            color: white;
+            display: block;
+            transition: background-color 0.3s ease;
+        }
+
+        .sidebar a:hover {
+            background-color: #555;
+        }
+
+        .container {
+            flex-grow: 1; /* Allow container to take remaining space */
+            max-width: 600px; /* Reduced max-width */
+            margin: 20px 20px 20px 220px; /* Adjust margins for sidebar and spacing */
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            display: flex; /* Enable flexbox for side-by-side layout */
+            flex-direction: column; /* Stack sections vertically */
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .section {
+            margin-bottom: 15px; /* Reduced margin between sections */
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .section h2 {
+            color: #555;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+            font-size: 1.2em; /* Slightly smaller heading */
+        }
+
+        .top-locations {
+            list-style-position: inside;
+            padding-left: 0;
+            font-size: 0.9em; /* Slightly smaller text */
+        }
+
+        .top-locations li {
+            padding: 6px 0; /* Reduced padding */
+            border-bottom: 1px solid #eee;
+        }
+
+        .top-locations li:last-child{
+            border-bottom: none;
+        }
+
+        .yearly-trends {
+            padding-left: 15px; /* Reduced padding */
+            font-size: 0.9em; /* Slightly smaller text */
+            line-height: 1.4; /* Slightly tighter line height */
+        }
+
+        .yearly-trends p{
+            margin-bottom: 8px; /* Reduced margin */
+        }
+
+        .card {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 30px; /* Reduced padding */
+            margin-left: 20px; /* Add left margin to position to the right */
+            margin-top: 10px;
+            width: 350px; /* Set a fixed width for the card */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            font-size: 0.9em; /* Smaller font size */
+            line-height: 1.4; /* Tighter line height */
+        }
+
+        .card h3 {
+            color: #333;
+            margin-top: 0;
+            margin-bottom: 8px; /* Reduced margin */
+            font-size: 1em; /* Smaller heading */
+        }
+
+        .card ul {
+            list-style-type: disc;
+            padding-left: 15px; /* Reduced padding */
+            color: #555;
+            margin-bottom: 5px; /* Reduced margin */
+        }
+
+        .card ul li {
+            margin-bottom: 3px; /* Reduced margin */
+        }
+
+        .card b {
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <a href="{{ url_for('index') }}">Home</a>
+        <a href="{{ url_for('eda_page') }}">EDA</a>
+        <a href="{{ url_for('classification_page') }}">Classification</a>
+        <a href="{{ url_for('clustering_page') }}">Clustering</a>
+        <a href="{{ url_for('forecasting_page') }}">Forecasting</a>
+        <a href="{{ url_for('visualizations_page') }}">Visualizations</a>
+        <a href="{{ url_for('crime_analysis') }}">Crime Analysis</a>
+        <a href="{{ url_for('regression_page') }}">Regression</a>
+    </div>
+    <div class="container">
+        <h1>Crime Trend Analysis</h1>
+
+        <div class="section">
+            <h2>Top Locations for Crimes</h2>
+            <ul class="top-locations">
+                {% for location, count in top_locations.items() %}
+                    <li>{{ location }}: {{ count }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Yearly Crime Count</h2>
+            <div class="yearly-trends">
+                {% for year, count in yearly_crime_count.items() %}
+                    <p>{{ year }}: {{ count }}</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <h3>How This Crime Analysis is Helpful</h3>
+        <ul>
+            <li><b>Targeted Policing:</b> Helps allocate police resources to high-crime locations.</li>
+            <li><b>Safer Urban Planning:</b> Informs design and safety initiatives in risky areas.</li>
+            <li><b>Business Security:</b> Enables better risk assessment and security for businesses.</li>
+            <li><b>Resident Awareness:</b> Informs residents for safer decisions and precautions.</li>
+            <li><b>Informed Policy:</b> Provides data for effective crime prevention policies and funding.</li>
+        </ul>
+    </div>
+</body>
+</html>
